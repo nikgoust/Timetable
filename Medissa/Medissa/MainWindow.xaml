@@ -17,7 +17,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="TurnsTab" Header="Смены" HorizontalAlignment="Left" Width="58">
+            <TabItem x:Name="TurnsTab" Header="Смены" HorizontalAlignment="Left">
                 <Grid Background="WhiteSmoke">
                     <ComboBox x:Name="PlaceComboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120"/>
                     <ComboBox x:Name="DoctorsNameComboBox" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="120"/>
@@ -26,6 +26,7 @@
                     <Button x:Name="AddTurnButton" Content="Добавить" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top" Width="120" Click="AddTurnButton_Click"/>
                     <CheckBox x:Name="TurnCheckBox" Content="Заполнить с выбранного дня" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="StateLabel" Content="" HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top" Width="133"/>
+                    <CheckBox x:Name="FiveDayCheckBox" Content="Без суббот" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name ="MainAdminTab" Header="Пользователи">

@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Medissa"
         mc:Ignorable="d"
-        Title="" Height="225.506" Width="229.518">
+        Title="" Height="225.506" Width="229.518" ResizeMode="NoResize">
     <Grid>
         <Button x:Name="button" Content="Изменить" HorizontalAlignment="Right" Margin="0,148,45,0" Width="126" Click="button_Click" Height="32" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="35,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="35,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="35,100,0,0" VerticalAlignment="Top" Width="152"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="30" Margin="35,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="30" Margin="35,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="30" Margin="35,100,0,0" VerticalAlignment="Top" Width="152"/>
 
     </Grid>
 </Window>

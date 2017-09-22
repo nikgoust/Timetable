@@ -28,6 +28,7 @@ namespace Medissa
 
         private string _memberForChange;
         private string _doctorForChange;
+        private string _doctorWorkPlaceForChange;
         private int[,] _stateArray;
 
         public MainWindow(string name, string role){
@@ -68,7 +69,7 @@ namespace Medissa
 
         private void InitDoctorsTab(){
             using (var db = new MembersContext()){
-                DoctorsListView.ItemsSource = db.Doctors.Where(l=>l.WorkPlace==WorkPlacesComboBox.SelectedItem.ToString()).Select(l => l.DoctorsName );
+                DoctorsListView.ItemsSource = db.Doctors.Where(l=>l.WorkPlace==WorkPlacesComboBox.SelectedItem.ToString()).OrderBy(l=>l.DoctorsName).Select(l => l.DoctorsName );
             } 
         }
 
@@ -239,11 +240,11 @@ namespace Medissa
             }
         }
 
-        private void InitTurnTab()
-        {
-            DatePicker.DisplayDateStart = new DateTime?(DateTime.Today.AddDays(-40));
-            DatePicker.DisplayDateEnd = new DateTime?(DateTime.Today.AddDays(+40));
-            TurnesСomboBox.ItemsSource = new List<string> { "Первая смена", "Вторая смена", "Обе смены", "Выходной" };
+        private void InitTurnTab(){
+            DatePicker.DisplayDateStart = new DateTime?(DateTime.Today.AddDays(-60));
+            DatePicker.DisplayDateEnd = new DateTime?(DateTime.Today.AddDays(+60));
+            TurnesСomboBox.ItemsSource = _userRole == Enum.GetName(typeof(Enums.Roles), 1) ? new List<string> { "Первая смена", "Вторая смена", "Обе смены", "Выходной" } : new List<string> { "Первая смена", "Вторая смена", "Обе смены", "Выходной","Очистить"};
+
         }
 
         private void LoadWorkPlacesList()
@@ -343,12 +344,10 @@ namespace Medissa
             }
         }
 
-        private void DoctorsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count > 0)
-            {
-                _doctorForChange = ((string)e.AddedItems[0]);
-            }
+        private void DoctorsListView_SelectionChanged(object sender, SelectionChangedEventArgs e){
+            if (e.AddedItems.Count <= 0) return;
+            _doctorForChange = ((string)e.AddedItems[0]);
+            _doctorWorkPlaceForChange = WorkPlacesComboBox.SelectedItem.ToString();
         }
 
         private void WorkPlacesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e){
@@ -402,13 +401,20 @@ namespace Medissa
                         for (var i = 0; i < (DatePicker.DisplayDateEnd - DatePicker.SelectedDate)?.Days; i++)
                         {
                             var thisDate = date.AddDays(i);
+                            if (FiveDayCheckBox.IsChecked ?? false){
+                                if (thisDate.DayOfWeek == DayOfWeek.Saturday || thisDate.DayOfWeek == DayOfWeek.Sunday) continue;
+                            }
                             if (thisDate.DayOfWeek == DayOfWeek.Sunday) continue;
                             var turnsList = db.Turns.ToList();
                             var reWrite = turnsList.Find(l => l.Date == thisDate.ToString("dd.MM.yyyy") && l.DoctorsName == DoctorsNameComboBox.SelectedItem.ToString() && l.WorkPlace == PlaceComboBox.Text);
                             if (reWrite != null){
-                                reWrite.Turns = turn.ToString();
+                                if (TurnesСomboBox.SelectedItem.ToString() == "Очистить"){
+                                    db.Remove(reWrite);
+                                }
+                                else reWrite.Turns = turn.ToString();
                             }
                             else{
+                                if (TurnesСomboBox.SelectedItem.ToString() == "Очистить") continue;
                                 var newTurn = new Turn { DoctorsName = DoctorsNameComboBox.SelectedItem.ToString(), Turns = turn.ToString(), Date = thisDate.ToString("dd.MM.yyyy"), WorkPlace = PlaceComboBox.Text };
                                 db.Turns.Add(newTurn);
                             }
@@ -422,8 +428,17 @@ namespace Medissa
                     using (var db = new MembersContext()){
                         var turnsList = db.Turns.ToList();
                         var reWrite = turnsList.Find(l => l.Date== DatePicker.Text&&l.DoctorsName== DoctorsNameComboBox.SelectedItem.ToString()&& l.WorkPlace == PlaceComboBox.Text);
-                        if (reWrite != null)reWrite.Turns = TurnesСomboBox.SelectedItem.ToString();
+                        if (reWrite != null){
+                            if (TurnesСomboBox.SelectedItem.ToString() == "Очистить"){
+                                db.Remove(reWrite);
+                            }
+                            reWrite.Turns = TurnesСomboBox.SelectedItem.ToString();
+                        }
                         else{
+                            if (TurnesСomboBox.SelectedItem.ToString() == "Очистить") {
+                                InitTimeTable();
+                                return;
+                            }
                             var newTurn = new Turn { DoctorsName = DoctorsNameComboBox.SelectedItem.ToString(), Turns = TurnesСomboBox.SelectedItem.ToString(), Date = DatePicker.Text, WorkPlace = PlaceComboBox.Text };
                             db.Turns.Add(newTurn);
                         }
@@ -439,8 +454,9 @@ namespace Medissa
         }
 
         private void DeleteDoctorButton_Click(object sender, RoutedEventArgs e){
-            using (var db = new MembersContext()){
-                var doctor = db.Doctors.ToList().Find(l => l.DoctorsName == _doctorForChange);
+            using (var db = new MembersContext())
+            {
+                var doctor = db.Doctors.ToList().Find(l => l.DoctorsName == _doctorForChange && l.WorkPlace==_doctorWorkPlaceForChange);
                 db.Remove(doctor);
                 db.SaveChanges();
                 InitDoctorsTab();
@@ -456,7 +472,7 @@ namespace Medissa
 
         private void EditDoctorButton_Click(object sender, RoutedEventArgs e)
         {
-            var addWindow = new EditDoctors(_doctorForChange);
+            var addWindow = new EditDoctors(_doctorForChange, _doctorWorkPlaceForChange);
             addWindow.DoctorsListChanged += AddWindow_DoctorsListChanged;
             addWindow.ShowDialog();
         }

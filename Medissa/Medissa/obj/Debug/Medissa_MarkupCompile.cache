@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-H:\ProjectsVS\Medissa\Medissa\obj\Debug\
+F:\Git\Timetable\Medissa\Medissa\obj\Debug\
 Medissa
 none
 false
 DEBUG;TRACE
-H:\ProjectsVS\Medissa\Medissa\App.xaml
+F:\Git\Timetable\Medissa\Medissa\App.xaml
 8451980540
-2-1092809796
+260500813
 141821947411
-82290949702
+8278429672
 AddDoctor.xaml;AddMembers.xaml;AddRecord.xaml;Auth.xaml;EditDoctors.xaml;EditMember.xaml;MainWindow.xaml;ShowingRecord.xaml;
 
 False

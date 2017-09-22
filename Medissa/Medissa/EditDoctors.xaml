@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Medissa"
         mc:Ignorable="d"
-        Title="EditDoctors" Height="182.235" Width="219.198">
+        Title="EditDoctors" Height="182.235" Width="219.198" ResizeMode="NoResize">
     <Grid>
         <Button x:Name="SaveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="49,100,0,0" VerticalAlignment="Top" Width="108" Click="SaveButton_Click"/>
         <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Height="30" HorizontalContentAlignment="Center" Margin="10,10,0,0" TextWrapping="Wrap" Text="Имя" VerticalAlignment="Top" Width="188"/>

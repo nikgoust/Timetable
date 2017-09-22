@@ -34,16 +34,10 @@ namespace Medissa
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(DoctorsNameTextBox.Text)){
-                StateLabel.Content = "Не все поля заполнены";
+                StateLabel.Content = "Введите имя";
                 return;
             }
             using (var db = new MembersContext()){
-                var doctorList = db.Doctors.ToList();
-                if (doctorList.Any(doctor => doctor.DoctorsName == DoctorsNameTextBox.Text && doctor.WorkPlace==WorkPlaceСomboBox.SelectedItem.ToString()))
-                {
-                    StateLabel.Content = "Такой доктор уже существует";
-                    return;
-                }
                 var newDoctor = new Doctor() { DoctorsName = DoctorsNameTextBox.Text, WorkPlace = WorkPlaceСomboBox.SelectedItem.ToString(), Post = DoctorsPostTextBox.Text};
                 db.Doctors.Add(newDoctor);
                 db.SaveChanges();

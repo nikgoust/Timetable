@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-H:\ProjectsVS\Medissa\Medissa\obj\Release\
+F:\Git\Timetable\Medissa\Medissa\obj\Release\
 Medissa
 none
 false
 TRACE
-H:\ProjectsVS\Medissa\Medissa\App.xaml
+F:\Git\Timetable\Medissa\Medissa\App.xaml
 8451980540
-2-1092809796
+260500813
 182026573922
-106-798082293
+8278429672
 AddDoctor.xaml;AddMembers.xaml;AddRecord.xaml;Auth.xaml;EditDoctors.xaml;EditMember.xaml;MainWindow.xaml;ShowingRecord.xaml;
 
-False
+True
 
