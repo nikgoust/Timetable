@@ -1,0 +1,15 @@
+﻿<Window x:Class="Medissa.EditDoctors"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Medissa"
+        mc:Ignorable="d"
+        Title="EditDoctors" Height="182.235" Width="219.198">
+    <Grid>
+        <Button x:Name="SaveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="49,100,0,0" VerticalAlignment="Top" Width="108" Click="SaveButton_Click"/>
+        <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Height="30" HorizontalContentAlignment="Center" Margin="10,10,0,0" TextWrapping="Wrap" Text="Имя" VerticalAlignment="Top" Width="188"/>
+        <TextBox x:Name="PostTextBox" HorizontalAlignment="Left" Height="30" HorizontalContentAlignment="Center" Margin="10,55,0,0" TextWrapping="Wrap" Text="Должность" VerticalAlignment="Top" Width="188"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,27 @@
+﻿<Window x:Class="Medissa.AddRecord"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Medissa"
+        mc:Ignorable="d"
+        Title="Запись" Height="400.302" Width="277.93">
+    <Grid Margin="0,0,0,-1">
+        <Label x:Name="AutorLabel" Content="Автор" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Width="208"/>
+        <Button x:Name="AddButton" Content="Добавить" HorizontalAlignment="Left" Margin="85,321,0,0" VerticalAlignment="Top" Width="109" Click="AddButton_Click"/>
+        <Label x:Name="label_Copy1" Content="Врач" HorizontalAlignment="Left" Margin="2,44,0,0" VerticalAlignment="Top" Width="70"/>
+        <Label x:Name="label_Copy2" Content="С" HorizontalAlignment="Left" Margin="2,248,0,0" VerticalAlignment="Top" Width="66"/>
+        <Label x:Name="label_Copy3" Content="До" HorizontalAlignment="Left" Margin="2,279,0,0" VerticalAlignment="Top" Width="70"/>
+        <DatePicker Name="DatePicker" HorizontalAlignment="Left" Margin="81,221,0,0" VerticalAlignment="Top" Width="112"/>
+        <ComboBox x:Name="ToComboBox" HorizontalAlignment="Left" Margin="81,279,0,0" VerticalAlignment="Top" Width="112"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="81,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179"/>
+        <Label x:Name="label_Copy4" Content="Пациент" HorizontalAlignment="Left" Margin="2,83,0,0" VerticalAlignment="Top" Width="70"/>
+        <TextBox x:Name="DoctorNameTextBox" HorizontalAlignment="Left" Height="23" Margin="81,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179"/>
+        <TextBox x:Name="StartTimeTextBox" HorizontalAlignment="Left" Height="23" Margin="81,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112"/>
+        <TextBox x:Name="ProcedureTextBox" HorizontalAlignment="Left" Height="23" Margin="81,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179"/>
+        <Label x:Name="ProcedureLable" Content="Процедура" HorizontalAlignment="Left" Margin="2,121,0,0" VerticalAlignment="Top" Width="74"/>
+        <TextBox x:Name="CabinetTextBox" HorizontalAlignment="Left" Height="23" Margin="81,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179"/>
+        <Label x:Name="ProcedureLable_Copy" Content="Кабинет" HorizontalAlignment="Left" Margin="2,169,0,0" VerticalAlignment="Top" Width="74"/>
+
+    </Grid>
+</Window>
