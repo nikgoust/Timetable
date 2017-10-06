@@ -117,7 +117,7 @@ namespace Medissa
                 var thisWorkPlace = WorkPlacesComboBox.SelectedItem.ToString();
                 var turnsDataSet = db.Turns.Where(i => i.Date == thisDate && i.WorkPlace== thisWorkPlace).ToList();
                 var recordsDataSet = db.Records.Where(i => i.Date == thisDate && i.WorkPlace== thisWorkPlace).ToList();
-                var headersList =db.Doctors.Where(x => x.WorkPlace == thisWorkPlace).ToList().OrderBy(x => x.DoctorsName).Select(x => x.DoctorsName).ToList();
+                var headersList =db.Doctors.Where(x => x.WorkPlace == thisWorkPlace).Select(x => x.DoctorsName).ToList();
                 var headersTextList = new List<string>(headersList);
                     
                 for (var i = 0; i < headersTextList.Count; i++){
@@ -252,7 +252,7 @@ namespace Medissa
             using (var db = new MembersContext())
             {
                 var workPlaces = new List<string>();
-                foreach (var doctor in db.Doctors.ToList().OrderBy(l=>l.WorkPlace))
+                foreach (var doctor in db.Doctors.ToList())
                 {
                     if (!workPlaces.Contains(doctor.WorkPlace))
                     {
@@ -262,7 +262,7 @@ namespace Medissa
                 PlaceComboBox.ItemsSource = workPlaces;
                 WorkPlacesComboBox.ItemsSource = workPlaces;
             }
-            WorkPlacesComboBox.SelectedItem = WorkPlacesComboBox.Items[1];
+            WorkPlacesComboBox.SelectedItem = WorkPlacesComboBox.Items[0];
         }
 
         private void LoadMemberList()
@@ -283,7 +283,6 @@ namespace Medissa
             if (e.ButtonState == MouseButtonState.Released) return;
             var grid = sender as DataGrid;
             var currentRowIndex = (grid?.Items.IndexOf(grid.CurrentItem)).Value;
-            if (grid?.CurrentColumn==null)return;
             var currentColumn = (grid?.CurrentColumn.DisplayIndex).Value;
             var time = (grid.CurrentItem as TimeTableRow).Time;
             var date = Calendar.SelectedDate?.ToString("dd.MM.yyyy") ?? Calendar.DisplayDate.ToString("dd.MM.yyyy");
@@ -305,7 +304,7 @@ namespace Medissa
                                 i.Date == date && i.DoctorsName == doctorsName &&
                                 i.WorkPlace == WorkPlacesComboBox.SelectedItem.ToString()&&
                                 Convert.ToDateTime(i.TimeStart)<= Convert.ToDateTime(time)&&
-                                Convert.ToDateTime(i.TimeEnd) > Convert.ToDateTime(time)).ToList();
+                                Convert.ToDateTime(i.TimeEnd) >= Convert.ToDateTime(time)).ToList();
                     var addWindow = new ShowingRecord(record[0]);
                     addWindow.RecordChanged += AddWindowRecordChanged; ;
                     addWindow.ShowDialog();
