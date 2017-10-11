@@ -19,6 +19,7 @@ namespace Medissa
         public List<SolidColorBrush> ColorsList { get; set; }
         public List<int>  IsEmpty { get; set; }
         public string Time { get; set; }
+        public int Id { get; set; }
     }
 
     public partial class MainWindow : Window
@@ -30,13 +31,24 @@ namespace Medissa
         private string _doctorForChange;
         private string _doctorWorkPlaceForChange;
         private int[,] _stateArray;
+        public LinearGradientBrush dotedBrush { get; set; }
 
         public MainWindow(string name, string role){
+            dotedBrush = new LinearGradientBrush()
+            {
+                StartPoint = new Point(0, 0),
+                EndPoint = new Point(8, 1),
+                SpreadMethod = GradientSpreadMethod.Repeat,
+                MappingMode = BrushMappingMode.Absolute
+            };
+            dotedBrush.GradientStops.Add(new GradientStop(Colors.Black, 0));
+            dotedBrush.GradientStops.Add(new GradientStop(Colors.Black, 0.5));
+            dotedBrush.GradientStops.Add(new GradientStop(Colors.White, 0.5));
+            dotedBrush.GradientStops.Add(new GradientStop(Colors.White, 1));
             InitializeComponent();
             UserName = name;
             _userRole = role;
             InitializeWorkSpace();
-           
         }
 
         private void InitializeWorkSpace(){
@@ -53,6 +65,7 @@ namespace Medissa
             MembersListView.SelectionChanged += MembersListView_SelectionChanged;
             DoctorsListView.SelectionChanged += DoctorsListView_SelectionChanged;
             Calendar.SelectedDatesChanged += Calendar_SelectedDatesChanged;
+            
             if (_userRole == Enum.GetName(typeof(Enums.Roles), 1))
             {
                 MainAdminTab.Visibility = Visibility.Hidden;
@@ -69,7 +82,7 @@ namespace Medissa
 
         private void InitDoctorsTab(){
             using (var db = new MembersContext()){
-                DoctorsListView.ItemsSource = db.Doctors.Where(l=>l.WorkPlace==WorkPlacesComboBox.SelectedItem.ToString()).OrderBy(l=>l.DoctorsName).Select(l => l.DoctorsName );
+                DoctorsListView.ItemsSource = db.Doctors.Where(l=>l.WorkPlace==WorkPlacesComboBox.SelectedItem.ToString()).OrderBy(l=>l.Number).Select(l => l.DoctorsName);
             } 
         }
 
@@ -102,8 +115,9 @@ namespace Medissa
                     CanUserSort = false,
                     HeaderStyle = new Style() {Setters = { new Setter() {Property = DataGridCell.HorizontalContentAlignmentProperty, Value = System.Windows.HorizontalAlignment.Center} }},
                     Width = 230,
-                    Binding = new Binding(string.Format("ContentList[{0}]", index)),
-                    CellStyle = new Style() { Setters = { new Setter() {Property = DataGridCell.BackgroundProperty, Value = new Binding(string.Format("ColorsList[{0}]", index)) } }}
+                    Binding = new Binding($"ContentList[{index}]"),
+                    CellStyle = new Style() { Setters = { new Setter() {Property = DataGridCell.BackgroundProperty, Value = new Binding(
+                        $"ColorsList[{index}]") } }}
                 });
                 index++;
             }
@@ -117,7 +131,7 @@ namespace Medissa
                 var thisWorkPlace = WorkPlacesComboBox.SelectedItem.ToString();
                 var turnsDataSet = db.Turns.Where(i => i.Date == thisDate && i.WorkPlace== thisWorkPlace).ToList();
                 var recordsDataSet = db.Records.Where(i => i.Date == thisDate && i.WorkPlace== thisWorkPlace).ToList();
-                var headersList =db.Doctors.Where(x => x.WorkPlace == thisWorkPlace).Select(x => x.DoctorsName).ToList();
+                var headersList =db.Doctors.Where(x => x.WorkPlace == thisWorkPlace).OrderBy(x=>x.Number).Select(x => x.DoctorsName).ToList();
                 var headersTextList = new List<string>(headersList);
                     
                 for (var i = 0; i < headersTextList.Count; i++){
@@ -127,8 +141,8 @@ namespace Medissa
                 var rowList = new List<TimeTableRow>();
                 GenerateColumns(TimeTableDataGrid, new TimeTableRow { ContentList = headersTextList });
                 
-                var colorsArray = new int[21,headersList.Count];//0 - серый, 1 - тёмносерый, 2-зеленый, 3-голубой, 4-белый
-                _stateArray = new int[21, headersList.Count]; //0 - не рабочее время, 1-запись, 2-пусто
+                var colorsArray = new int[41,headersList.Count];//0 - серый, 1 - тёмносерый, 2-зеленый, 3-голубой, 4-белый
+                _stateArray = new int[41, headersList.Count]; //0 - не рабочее время, 1-запись, 2-пусто
                 Array.Clear(colorsArray,0, colorsArray.Length);
                 Array.Clear(_stateArray, 0, _stateArray.Length);
 
@@ -137,35 +151,35 @@ namespace Medissa
                         var thisTurn = turnsDataSet.Find(head => head.DoctorsName == headersList[i]);
                         switch (thisTurn.Turns){
                             case "Вторая смена":
-                                for (var j = 0; j < 10; j++){
+                                for (var j = 0; j < 20; j++){
                                     colorsArray[j, i] = 0;
                                     _stateArray[j, i] = 0;
                                 }
-                                for (var j = 10; j <21; j++)
+                                for (var j = 20; j <41; j++)
                                 {
                                     colorsArray[j, i] = 4;
                                     _stateArray[j, i] = 2;
                                 }
                                 break;
                             case "Первая смена":
-                                for (var j = 0; j < 10; j++)
+                                for (var j = 0; j < 20; j++)
                                 {
                                     colorsArray[j, i] = 4;
                                     _stateArray[j, i] = 2;
                                 }
-                                for (var j = 10; j < 21; j++){
+                                for (var j = 20; j < 41; j++){
                                     colorsArray[j, i] = 0;
                                     _stateArray[j, i] = 0;
                                 }
                                 break;
                             case "Выходной":
-                                for (var j = 0; j < 21; j++){
+                                for (var j = 0; j < 41; j++){
                                     colorsArray[j, i] = 1;
                                     _stateArray[j, i] = 0;
                                 }
                                 break;
                             case "Обе смены":
-                                for (var j = 0; j < 21; j++)
+                                for (var j = 0; j < 41; j++)
                                 {
                                     colorsArray[j, i] = 4;
                                     _stateArray[j, i] = 2;
@@ -181,7 +195,7 @@ namespace Medissa
                         {
                             var workingTime = false;
                             var time = "09:00";
-                            for (var j = 0; j < 21; j++){
+                            for (var j = 0; j < 41; j++){
                                 if (record.TimeStart == time){
                                     workingTime = true;
                                 }
@@ -192,14 +206,14 @@ namespace Medissa
                                     colorsArray[j, i] = flag == true ? 2 : 3;
                                     _stateArray[j, i] = 1;
                             }
-                            time = Convert.ToDateTime(time).AddMinutes(30).ToString("HH:mm");
+                            time = Convert.ToDateTime(time).AddMinutes(15).ToString("HH:mm");
                             }
                             flag = !flag;
                         }
                 }
                 
                 var time1 = "09:00";
-                for (var i =0;i<21;i++){
+                for (var i =0;i< 40; i++){
                     var contentList = new List<string>();
                     var colorList = new List<SolidColorBrush>();
                     for (var j=0;j<headersList.Count;j++){
@@ -230,13 +244,15 @@ namespace Medissa
                         colorList.Add(color);
                         
                     }
-                        var customRow = new TimeTableRow { ContentList = contentList, ColorsList = colorList, Time = time1};
+                        var customRow = new TimeTableRow { ContentList = contentList, ColorsList = colorList, Time = time1, Id=i};
                     rowList.Add(customRow);
-                    time1 = Convert.ToDateTime(time1).AddMinutes(30).ToString("HH:mm");
+                    time1 = Convert.ToDateTime(time1).AddMinutes(15).ToString("HH:mm");
                 }
                 TimeTableDataGrid.ItemsSource = rowList;
-                TimeTableDataGrid.RowHeight =50;
-                TimeTableDataGrid.MouseDoubleClick += TimeTableDataGrid_MouseDoubleClick; ; 
+                TimeTableDataGrid.RowHeight =35;
+                TimeTableDataGrid.MouseDoubleClick += TimeTableDataGrid_MouseDoubleClick;
+                TimeTableDataGrid.SelectionMode = DataGridSelectionMode.Single;
+                TimeTableDataGrid.HorizontalGridLinesBrush = null;
             }
         }
 
@@ -252,7 +268,7 @@ namespace Medissa
             using (var db = new MembersContext())
             {
                 var workPlaces = new List<string>();
-                foreach (var doctor in db.Doctors.ToList())
+                foreach (var doctor in db.Doctors.OrderBy(l=>l.WorkPlace).ToList())
                 {
                     if (!workPlaces.Contains(doctor.WorkPlace))
                     {
@@ -262,7 +278,13 @@ namespace Medissa
                 PlaceComboBox.ItemsSource = workPlaces;
                 WorkPlacesComboBox.ItemsSource = workPlaces;
             }
-            WorkPlacesComboBox.SelectedItem = WorkPlacesComboBox.Items[0];
+            if (WorkPlacesComboBox.Items.Contains("Горького 1")){
+                WorkPlacesComboBox.Text = "Горького 1";
+            }
+            else{
+                WorkPlacesComboBox.SelectedItem = WorkPlacesComboBox.Items[0];
+            }
+            
         }
 
         private void LoadMemberList()
@@ -273,51 +295,38 @@ namespace Medissa
             }
         }
 
-        private void AddWindow_RecordAdded()
-        {
-            InitTimeTable();
-        }
-
-        private void TimeTableDataGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void TimeTableDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ButtonState == MouseButtonState.Released) return;
             var grid = sender as DataGrid;
             var currentRowIndex = (grid?.Items.IndexOf(grid.CurrentItem)).Value;
             var currentColumn = (grid?.CurrentColumn.DisplayIndex).Value;
+            if (currentRowIndex<0||currentColumn<0) return;
             var time = (grid.CurrentItem as TimeTableRow).Time;
             var date = Calendar.SelectedDate?.ToString("dd.MM.yyyy") ?? Calendar.DisplayDate.ToString("dd.MM.yyyy");
             if (_stateArray[currentRowIndex, currentColumn]==0) return;
             if (_stateArray[currentRowIndex, currentColumn] == 2){
                 var addWindow = new AddRecord(date, time, grid.CurrentCell.Column.Header.ToString(), WorkPlacesComboBox.SelectedItem.ToString());
-                addWindow.RecordAdded += AddWindow_RecordAdded; 
+                addWindow.RecordAdded += InitTimeTable; 
                 addWindow.ShowDialog();
             }
             else{
-                
                 using (var db = new MembersContext())
                 {
                     var doctorsName = grid.CurrentCell.Column.Header.ToString()
                         .Substring(0, grid.CurrentCell.Column.Header.ToString().IndexOf("\n"));
                     var record =
-                        db.Records.Where(
+                        db.Records.First(
                             i =>
                                 i.Date == date && i.DoctorsName == doctorsName &&
-                                i.WorkPlace == WorkPlacesComboBox.SelectedItem.ToString()&&
-                                Convert.ToDateTime(i.TimeStart)<= Convert.ToDateTime(time)&&
-                                Convert.ToDateTime(i.TimeEnd) >= Convert.ToDateTime(time)).ToList();
-                    var addWindow = new ShowingRecord(record[0]);
-                    addWindow.RecordChanged += AddWindowRecordChanged; ;
+                                i.WorkPlace == WorkPlacesComboBox.SelectedItem.ToString() &&
+                                Convert.ToDateTime(i.TimeStart) <= Convert.ToDateTime(time) &&
+                                Convert.ToDateTime(i.TimeEnd) > Convert.ToDateTime(time));
+                    var addWindow = new ShowingRecord(record);
+                    addWindow.RecordChanged +=InitTimeTable;
                     addWindow.ShowDialog();
                 }
-                
             }
-
-        }
-
-        private void AddWindowRecordChanged()
-        {
-            InitTimeTable();
-
         }
 
         private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
@@ -356,13 +365,7 @@ namespace Medissa
             InitDoctorsTab();
         }
 
-        private void AddWindow_MemberListChanged()
-        {
-            LoadMemberList();
-        }
-
-        private void AddWindow_DoctorsListChanged()
-        {
+        private void DoctorsListChanged(){
             InitDoctorsTab();
             InitTimeTable();
         }
@@ -370,7 +373,7 @@ namespace Medissa
         private void button_Click(object sender, RoutedEventArgs e)
         {
             var addWindow = new AddMembers();
-            addWindow.MemberListChanged += AddWindow_MemberListChanged;
+            addWindow.MemberListChanged += LoadMemberList;
             addWindow.ShowDialog();
         }
 
@@ -378,7 +381,7 @@ namespace Medissa
         {
             if(MembersListView.SelectedItem==null)return;
             var addWindow = new EditMember(_memberForChange);
-            addWindow.MemberListChanged += AddWindow_MemberListChanged;
+            addWindow.MemberListChanged += LoadMemberList;
             addWindow.ShowDialog();
         }
 
@@ -459,22 +462,70 @@ namespace Medissa
                 var doctor = db.Doctors.ToList().Find(l => l.DoctorsName == _doctorForChange && l.WorkPlace==_doctorWorkPlaceForChange);
                 db.Remove(doctor);
                 db.SaveChanges();
-                InitDoctorsTab();
-                InitTimeTable();
+                DoctorsListChanged();
             }
         }
 
         private void AddDoctorButton_Click(object sender, RoutedEventArgs e){
             var addWindow = new AddDoctor();
-            addWindow.DoctorsListChanged += AddWindow_DoctorsListChanged;
+            addWindow.DoctorsListChanged += DoctorsListChanged;
             addWindow.ShowDialog();
         }
 
         private void EditDoctorButton_Click(object sender, RoutedEventArgs e)
         {
             var addWindow = new EditDoctors(_doctorForChange, _doctorWorkPlaceForChange);
-            addWindow.DoctorsListChanged += AddWindow_DoctorsListChanged;
+            addWindow.DoctorsListChanged += DoctorsListChanged;
             addWindow.ShowDialog();
+        }
+
+        private void UpButton_Click(object sender, RoutedEventArgs e){
+            if (DoctorsListView.SelectedItem == null|| DoctorsListView.SelectedIndex==0) return;
+            using (var db = new MembersContext()){
+                var doc = DoctorsListView.Items[DoctorsListView.SelectedIndex - 1];
+                var firstDoc = db.Doctors.First(l => l.DoctorsName==_doctorForChange&&l.WorkPlace==_doctorWorkPlaceForChange);
+                var secondDoc = db.Doctors.First(l=>l.DoctorsName== doc.ToString()&&l.WorkPlace==_doctorWorkPlaceForChange);
+                var warhouse = firstDoc.Number;
+                firstDoc.Number = secondDoc.Number;
+                secondDoc.Number = warhouse;
+                db.SaveChanges();
+            }
+            DoctorsListChanged();
+            DoctorsListView.SelectedIndex = DoctorsListView.SelectedIndex - 1;
+        }
+
+        private void DownButton_Click(object sender, RoutedEventArgs e){
+            if (DoctorsListView.SelectedItem == null || DoctorsListView.SelectedIndex == DoctorsListView.Items.Count-1) return;
+            using (var db = new MembersContext()){
+                var doc = DoctorsListView.Items[DoctorsListView.SelectedIndex + 1];
+                var firstDoc = db.Doctors.First(l => l.DoctorsName == _doctorForChange && l.WorkPlace == _doctorWorkPlaceForChange);
+                var secondDoc = db.Doctors.First(l => l.DoctorsName == doc.ToString() && l.WorkPlace == _doctorWorkPlaceForChange);
+                var warhouse = firstDoc.Number;
+                firstDoc.Number = secondDoc.Number;
+                secondDoc.Number = warhouse;
+                db.SaveChanges();
+            }
+            DoctorsListChanged();
+            DoctorsListView.SelectedIndex = DoctorsListView.SelectedIndex + 1;
+        }
+
+        private void TimeTableDataGrid_OnScrollChanged(object sender, ScrollChangedEventArgs e){
+            TimeTableDataGrid.UnselectAllCells();
+        }
+    }
+    public class RowToIndexConverter : DependencyObject, IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter,
+                                 System.Globalization.CultureInfo culture)
+        {
+            var row = value as TimeTableRow;
+            return row != null && (row.Id+1) % 4 == 0;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter,
+                                   System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }

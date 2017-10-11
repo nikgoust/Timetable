@@ -183,3 +183,4 @@ F:\Git\Timetable\Medissa\Medissa\obj\Debug\ShowingRecord.baml
 F:\Git\Timetable\Medissa\Medissa\obj\Debug\Medissa.g.resources
 F:\Git\Timetable\Medissa\Medissa\obj\Debug\Medissa.Properties.Resources.resources
 F:\Git\Timetable\Medissa\Medissa\obj\Debug\Medissa.csproj.GenerateResource.Cache
+F:\Git\Timetable\Medissa\Medissa\obj\Debug\GeneratedInternalTypeHelper.g.cs

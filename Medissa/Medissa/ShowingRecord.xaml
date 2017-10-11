@@ -5,27 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Medissa"
         mc:Ignorable="d"
-        Title="Запись" Height="465.826" Width="293.983" ResizeMode="NoResize">
+        Title="Запись" Height="472.826" Width="293.983" ResizeMode="NoResize">
     <Grid>
         <Button x:Name="DeleteButton" Content="Удалить" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="166,0,0,11" Width="110" Click="DeleteButton_Click" Height="30" VerticalAlignment="Bottom"/>
         <Label x:Name="AuthorLabel" Content="Label" HorizontalAlignment="Left"  Margin="86,10,0,0" VerticalAlignment="Top" Width="190" Height="30"/>
         <Label x:Name="DoctorLabel" Content="Label" HorizontalAlignment="Left"  Margin="86,50,0,0" VerticalAlignment="Top" Width="190" Height="30"/>
-        <Label x:Name="WorkPlaceLabel" Content="Label" HorizontalAlignment="Left"  Margin="86,210,0,0" VerticalAlignment="Top" Width="190" Height="30"/>
-        <Label x:Name="DateLabel" Content="Label" HorizontalAlignment="Left"  Margin="86,250,0,0" VerticalAlignment="Top" Width="190" Height="30"/>
+        <Label x:Name="WorkPlaceLabel" Content="Label" HorizontalAlignment="Left"  Margin="86,234,0,0" VerticalAlignment="Top" Width="190" Height="30"/>
+        <Label x:Name="DateLabel" Content="Label" HorizontalAlignment="Left"  Margin="86,274,0,0" VerticalAlignment="Top" Width="190" Height="30"/>
         <Label x:Name="label" Height="30" Content="Автор" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="62" />
         <Label x:Name="label_Copy" Content="Доктор" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Width="62" Height="30"/>
         <Label x:Name="label_Copy1" Content="Пациент" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="62" Height="30"/>
         <Label x:Name="label_Copy2" Content="Процедура" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="71" Height="30"/>
-        <Label x:Name="label_Copy3" Content="Место" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="62" Height="30"/>
-        <Label x:Name="label_Copy4" Content="Дата" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top" Width="62" Height="30"/>
+        <Label x:Name="label_Copy3" Content="Место" HorizontalAlignment="Left" Margin="10,234,0,0" VerticalAlignment="Top" Width="62" Height="30"/>
+        <Label x:Name="label_Copy4" Content="Дата" HorizontalAlignment="Left" Margin="10,274,0,0" VerticalAlignment="Top" Width="62" Height="30"/>
         <Button x:Name="SaveButton" Content="Сохранить" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,0,0,11" Width="110" Height="30" VerticalAlignment="Bottom" Click="SaveButton_Click"/>
-        <Label x:Name="TimeFromLabel" Content="Label" HorizontalAlignment="Left"  Margin="86,290,0,0" VerticalAlignment="Top" Width="190" Height="30"/>
-        <Label x:Name="label_Copy5" Content="С" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="62" Height="30"/>
-        <Label x:Name="label_Copy6" Content="До" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top" Width="62" Height="30"/>
-        <TextBox x:Name="PatientTextBox" HorizontalAlignment="Left" Height="30" Margin="86,90,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="190" />
-        <TextBox x:Name="ProcedureTextBox" HorizontalAlignment="Left" Height="30" Margin="86,130,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="190" />
-        <ComboBox x:Name="TimeComboBox" HorizontalAlignment="Left" Margin="86,330,0,0" VerticalAlignment="Top" Width="84" Height="30"/>
-        <Label x:Name="label_Copy7" Content="Кабинет" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top" Width="71" Height="30"/>
-        <TextBox x:Name="CabinetTextBox" HorizontalAlignment="Left" Height="30" Margin="86,170,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="190" />
+        <Label x:Name="TimeFromLabel" Content="Label" HorizontalAlignment="Left"  Margin="86,314,0,0" VerticalAlignment="Top" Width="190" Height="30"/>
+        <Label x:Name="label_Copy5" Content="С" HorizontalAlignment="Left" Margin="10,314,0,0" VerticalAlignment="Top" Width="62" Height="30"/>
+        <Label x:Name="label_Copy6" Content="До" HorizontalAlignment="Left" Margin="10,354,0,0" VerticalAlignment="Top" Width="62" Height="30"/>
+        <TextBox x:Name="PatientTextBox" HorizontalAlignment="Left" Height="30" Margin="86,90,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="190" />
+        <TextBox x:Name="ProcedureTextBox" HorizontalAlignment="Left" Height="30" Margin="86,130,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="190" />
+        <ComboBox x:Name="TimeComboBox" HorizontalAlignment="Left" Margin="86,354,0,0" VerticalAlignment="Top" Width="84" Height="30"/>
+        <Label x:Name="label_Copy7" Content="Комментарий" HorizontalAlignment="Left" Margin="10,191,0,0" VerticalAlignment="Top" Width="87" Height="30"/>
+        <TextBox x:Name="CabinetTextBox" AcceptsReturn="True" HorizontalAlignment="Left" Height="51" Margin="102,170,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="174" />
     </Grid>
 </Window>

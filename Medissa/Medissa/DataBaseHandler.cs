@@ -28,7 +28,7 @@ namespace Medissa
          public string DoctorsName { get; set; }
          public string WorkPlace { get; set; }
          public string Post { get; set; }
-        
+         public int Number { get; set; }
     }
      public class Turn{
          public int Id { get; set; }

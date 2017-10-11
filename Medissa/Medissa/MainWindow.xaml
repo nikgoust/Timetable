@@ -5,15 +5,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        x:Name="_this"
+        xmlns:l="clr-namespace:Medissa"
         Title="Расписание" Height="641.394" Width="1083.364">
-
+    <Window.Resources>
+        <l:RowToIndexConverter x:Key="RowToIndexConverter" />
+    </Window.Resources>
     <Grid>
         <TabControl x:Name="TabControl" Margin="10,10,292,10">
             <TabItem Header="Расписание">
                 <Grid>
-                    <DataGrid Style="{x:Null}" x:Name="TimeTableDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                    <DataGrid Style="{x:Null}" x:Name="TimeTableDataGrid" ScrollViewer.ScrollChanged="TimeTableDataGrid_OnScrollChanged"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
                               CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False"
                               IsReadOnly="True">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Converter={StaticResource RowToIndexConverter}}" Value="true">
+                                        <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Converter={StaticResource RowToIndexConverter}}" Value="false">
+                                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                        <Setter Property="BorderBrush" Value="{Binding ElementName=_this, Path=dotedBrush}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
                     </DataGrid>
                 </Grid>
             </TabItem>
@@ -39,7 +57,7 @@
                     <Button x:Name="button1" Content="Редактировать" Grid.Column="1" Margin="13,76,13,0" VerticalAlignment="Top" Height="34" Click="button1_Click"/>
                     <Button x:Name="button2" Content="Удалить" Grid.Column="1" Margin="13,124,13,0" VerticalAlignment="Top" Height="35" Click="button2_Click"/>
                     <ListView x:Name="MembersListView" Height="468" VerticalAlignment="Top" Background="#FFCFCFCF">
-                        
+
                     </ListView>
                 </Grid>
             </TabItem>
@@ -52,8 +70,9 @@
                     <Button x:Name="AddDoctorButton" Content="Добавить" Grid.Column="1" Margin="13,31,13,0" VerticalAlignment="Top"  Height="35" Click="AddDoctorButton_Click"/>
                     <Button x:Name="DeleteDoctorButton" Content="Удалить" Grid.Column="1" Margin="13,139,13,0" VerticalAlignment="Top" Height="35" Click="DeleteDoctorButton_Click"/>
                     <Button x:Name="EditDoctorButton" Content="Редактировать" Grid.Column="1" Margin="13,84,13,0" VerticalAlignment="Top"  Height="35" Click="EditDoctorButton_Click" />
-                    <ListView x:Name="DoctorsListView" Height="468" VerticalAlignment="Top" Background="#FFCFCFCF">
-                    </ListView>
+                    <ListView x:Name="DoctorsListView" Background="#FFCFCFCF" Margin="0,0,0,63"/>
+                    <Button x:Name="UpButton" Content="Вверх" HorizontalAlignment="Left" Margin="10,520,0,0" Width="72" Height="Auto" Click="UpButton_Click"/>
+                    <Button x:Name="DownButton" Content="Вниз" HorizontalAlignment="Left" Margin="112,520,0,0" Width="72" Height="Auto" Click="DownButton_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>

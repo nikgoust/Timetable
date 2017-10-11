@@ -27,22 +27,20 @@ namespace Medissa
         }
 
         private void InitFields(){
-            DoctorNameTextBox.Text = _doctorName;
-            DoctorNameTextBox.IsEnabled = false;
+            DoctorNameLable.Content = _doctorName;
             DatePicker.IsEnabled = false;
             AutorLabel.Content = MainWindow.UserName;
             StartTimeTextBox.Text= _startTime;
             StartTimeTextBox.IsEnabled = false;
             ToTimeGeneration(ToComboBox);
-            
         }
 
         private void ToTimeGeneration(ComboBox timeBox){
-            var time = new List<string>(){
-                "09:00", "09:30","10:00","10:30","11:00","11:30",
-                "12:00", "12:30","13:00","13:30","14:00","14:30",
-                "15:00","15:30","16:00","16:30","17:00","17:30",
-                "18:00","18:30","19:00"};
+            var time = new List<string>();
+            const int deltaTime = 15;
+            for (var localTime = Convert.ToDateTime("09:00"); localTime <= Convert.ToDateTime("19:00"); localTime = localTime.AddMinutes(deltaTime)){
+                time.Add(localTime.ToString("HH:mm"));
+            }
             using (var db = new MembersContext()){
                 var dataset =
                     db.Records.Where(record => record.Date == DatePicker.Text && record.DoctorsName == _doctorName)
