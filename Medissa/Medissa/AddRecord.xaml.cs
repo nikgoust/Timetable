@@ -52,7 +52,7 @@ namespace Medissa
                         .ToList();
                 if (turns.Count > 0){
                     if (turns[0].Turns == "Первая смена"){
-                        time.RemoveAll(i => Convert.ToDateTime(i) >= Convert.ToDateTime(time[11]));
+                        time.RemoveAll(i => Convert.ToDateTime(i) >= Convert.ToDateTime(time[21]));
                     }
                 }
                 var index = time.FindIndex(i => i == _startTime);

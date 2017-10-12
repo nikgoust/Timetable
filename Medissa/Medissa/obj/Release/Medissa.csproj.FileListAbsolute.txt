@@ -198,3 +198,5 @@ F:\Git\Timetable\Medissa\Medissa\obj\Release\ShowingRecord.baml
 F:\Git\Timetable\Medissa\Medissa\obj\Release\Medissa.g.resources
 F:\Git\Timetable\Medissa\Medissa\obj\Release\Medissa.Properties.Resources.resources
 F:\Git\Timetable\Medissa\Medissa\obj\Release\Medissa.csproj.GenerateResource.Cache
+F:\Git\Timetable\Medissa\Medissa\obj\Release\GeneratedInternalTypeHelper.g.cs
+F:\Git\Timetable\Medissa\Medissa\bin\Release\Прелварительная запись.exe.config

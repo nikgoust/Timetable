@@ -491,7 +491,6 @@ namespace Medissa
                 db.SaveChanges();
             }
             DoctorsListChanged();
-            DoctorsListView.SelectedIndex = DoctorsListView.SelectedIndex - 1;
         }
 
         private void DownButton_Click(object sender, RoutedEventArgs e){
@@ -506,7 +505,6 @@ namespace Medissa
                 db.SaveChanges();
             }
             DoctorsListChanged();
-            DoctorsListView.SelectedIndex = DoctorsListView.SelectedIndex + 1;
         }
 
         private void TimeTableDataGrid_OnScrollChanged(object sender, ScrollChangedEventArgs e){

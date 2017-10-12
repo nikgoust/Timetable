@@ -92,7 +92,7 @@ namespace Medissa {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Medissa;component/addmembers.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Прелварительная запись;component/addmembers.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\AddMembers.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

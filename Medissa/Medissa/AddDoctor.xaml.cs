@@ -37,8 +37,11 @@ namespace Medissa
                 StateLabel.Content = "Введите имя";
                 return;
             }
-            using (var db = new MembersContext()){
-                var newDoctor = new Doctor() { DoctorsName = DoctorsNameTextBox.Text, WorkPlace = WorkPlaceСomboBox.SelectedItem.ToString(), Post = DoctorsPostTextBox.Text};
+            using (var db = new MembersContext())
+            {
+                var numberList = db.Doctors.OrderBy(i => i.Number).Select(l=>l.Number).ToList();
+                var newNumber = numberList[numberList.Count - 1]+1;
+                var newDoctor = new Doctor() { DoctorsName = DoctorsNameTextBox.Text, WorkPlace = WorkPlaceСomboBox.SelectedItem.ToString(), Post = DoctorsPostTextBox.Text, Number = newNumber };
                 db.Doctors.Add(newDoctor);
                 db.SaveChanges();
                 StateLabel.Content = "Доктор добавлен";
