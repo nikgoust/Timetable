@@ -16,7 +16,7 @@
             <TabItem Header="Расписание">
                 <Grid>
                     <DataGrid Style="{x:Null}" x:Name="TimeTableDataGrid" ScrollViewer.ScrollChanged="TimeTableDataGrid_OnScrollChanged"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
-                              CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False"
+                              CanUserResizeColumns="True" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False"
                               IsReadOnly="True">
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
@@ -71,8 +71,8 @@
                     <Button x:Name="DeleteDoctorButton" Content="Удалить" Grid.Column="1" Margin="13,139,13,0" VerticalAlignment="Top" Height="35" Click="DeleteDoctorButton_Click"/>
                     <Button x:Name="EditDoctorButton" Content="Редактировать" Grid.Column="1" Margin="13,84,13,0" VerticalAlignment="Top"  Height="35" Click="EditDoctorButton_Click" />
                     <ListView x:Name="DoctorsListView" Background="#FFCFCFCF" Margin="0,0,0,63"/>
-                    <Button x:Name="UpButton" Content="Вверх" HorizontalAlignment="Left" Margin="10,520,0,0" Width="72" Height="Auto" Click="UpButton_Click"/>
-                    <Button x:Name="DownButton" Content="Вниз" HorizontalAlignment="Left" Margin="112,520,0,0" Width="72" Height="Auto" Click="DownButton_Click"/>
+                    <Button x:Name="UpButton" Content="Вверх" HorizontalAlignment="Left" Margin="10,0,0,0" Width="72" Height="42" Click="UpButton_Click" VerticalAlignment="Bottom"/>
+                    <Button x:Name="DownButton" Content="Вниз" HorizontalAlignment="Left" Margin="112,0,0,0" Width="72" Height="42" Click="DownButton_Click" VerticalAlignment="Bottom"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -75,10 +75,11 @@ namespace Medissa
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e){
-            if (string.IsNullOrEmpty(DoctorLabel.Content.ToString())||string.IsNullOrEmpty(TimeComboBox.Text)) return;
+            if (string.IsNullOrEmpty(DoctorLabel.Content.ToString())||string.IsNullOrEmpty(TimeComboBox.Text) || string.IsNullOrEmpty(PatientTextBox.Text)) return;
             using (var db = new MembersContext()){
                 var recordToEdit =db.Records.First(i => i.TimeStart == _timeStart && i.Date == _date && i.DoctorsName == _doctor);
                 recordToEdit.DoctorsName = DoctorLabel.Content.ToString();
+                recordToEdit.PatientName = PatientTextBox.Text;
                 recordToEdit.Procedure = ProcedureTextBox.Text;
                 recordToEdit.TimeEnd = TimeComboBox.SelectedItem.ToString();
                 recordToEdit.Cabinet = CabinetTextBox.Text;

@@ -103,10 +103,11 @@ namespace Medissa
             }
         }
 
-        public static void GenerateColumns(DataGrid dataGrid, TimeTableRow row)
+        public static void GenerateColumns(DataGrid dataGrid, TimeTableRow row, string workPlace)
         {
             dataGrid.Columns.Clear();
             var index = 0;
+            var width = workPlace == "Косметология" ? 150 : 230;
             foreach (var column in row.ContentList)
             {
                 dataGrid.Columns.Add(new DataGridTextColumn
@@ -114,7 +115,7 @@ namespace Medissa
                     Header = column,
                     CanUserSort = false,
                     HeaderStyle = new Style() {Setters = { new Setter() {Property = DataGridCell.HorizontalContentAlignmentProperty, Value = System.Windows.HorizontalAlignment.Center} }},
-                    Width = 230,
+                    Width = width,
                     Binding = new Binding($"ContentList[{index}]"),
                     CellStyle = new Style() { Setters = { new Setter() {Property = DataGridCell.BackgroundProperty, Value = new Binding(
                         $"ColorsList[{index}]") } }}
@@ -139,7 +140,7 @@ namespace Medissa
                     && x.DoctorsName== headersTextList[i]).Select(x => x.Post).ToList()[0];
                 }
                 var rowList = new List<TimeTableRow>();
-                GenerateColumns(TimeTableDataGrid, new TimeTableRow { ContentList = headersTextList });
+                GenerateColumns(TimeTableDataGrid, new TimeTableRow { ContentList = headersTextList }, WorkPlacesComboBox.SelectedItem.ToString());
                 
                 var colorsArray = new int[41,headersList.Count];//0 - серый, 1 - тёмносерый, 2-зеленый, 3-голубой, 4-белый
                 _stateArray = new int[41, headersList.Count]; //0 - не рабочее время, 1-запись, 2-пусто
@@ -253,6 +254,7 @@ namespace Medissa
                 TimeTableDataGrid.MouseDoubleClick += TimeTableDataGrid_MouseDoubleClick;
                 TimeTableDataGrid.SelectionMode = DataGridSelectionMode.Single;
                 TimeTableDataGrid.HorizontalGridLinesBrush = null;
+                
             }
         }
 
@@ -300,7 +302,8 @@ namespace Medissa
             if (e.ButtonState == MouseButtonState.Released) return;
             var grid = sender as DataGrid;
             var currentRowIndex = (grid?.Items.IndexOf(grid.CurrentItem)).Value;
-            var currentColumn = (grid?.CurrentColumn.DisplayIndex).Value;
+            if(grid?.CurrentColumn?.DisplayIndex==null) return;
+            var currentColumn = (grid?.CurrentColumn?.DisplayIndex).Value;
             if (currentRowIndex<0||currentColumn<0) return;
             var time = (grid.CurrentItem as TimeTableRow).Time;
             var date = Calendar.SelectedDate?.ToString("dd.MM.yyyy") ?? Calendar.DisplayDate.ToString("dd.MM.yyyy");

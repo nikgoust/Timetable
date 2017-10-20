@@ -102,13 +102,8 @@ H:\ProjectsVS\Medissa\Medissa\bin\Release\MaterialDesignColors.dll
 H:\ProjectsVS\Medissa\Medissa\bin\Release\MaterialDesignThemes.Wpf.dll
 H:\ProjectsVS\Medissa\Medissa\bin\Release\MaterialDesignThemes.Wpf.pdb
 H:\ProjectsVS\Medissa\Medissa\bin\Release\MaterialDesignThemes.Wpf.xml
-F:\Git\Timetable\Medissa\Medissa\bin\Release\Medissa.exe.config
-F:\Git\Timetable\Medissa\Medissa\obj\Release\Medissa.exe
-F:\Git\Timetable\Medissa\Medissa\obj\Release\Medissa.pdb
 F:\Git\Timetable\Medissa\Medissa\bin\Release\x86\sqlite3.dll
 F:\Git\Timetable\Medissa\Medissa\bin\Release\x64\sqlite3.dll
-F:\Git\Timetable\Medissa\Medissa\bin\Release\Medissa.exe
-F:\Git\Timetable\Medissa\Medissa\bin\Release\Medissa.pdb
 F:\Git\Timetable\Medissa\Medissa\bin\Release\MaterialDesignColors.dll
 F:\Git\Timetable\Medissa\Medissa\bin\Release\MaterialDesignThemes.Wpf.dll
 F:\Git\Timetable\Medissa\Medissa\bin\Release\Microsoft.Data.Sqlite.dll
@@ -184,9 +179,6 @@ F:\Git\Timetable\Medissa\Medissa\obj\Release\EditMember.g.cs
 F:\Git\Timetable\Medissa\Medissa\obj\Release\MainWindow.g.cs
 F:\Git\Timetable\Medissa\Medissa\obj\Release\ShowingRecord.g.cs
 F:\Git\Timetable\Medissa\Medissa\obj\Release\App.g.cs
-F:\Git\Timetable\Medissa\Medissa\obj\Release\Medissa_Content.g.cs
-F:\Git\Timetable\Medissa\Medissa\obj\Release\Medissa_MarkupCompile.cache
-F:\Git\Timetable\Medissa\Medissa\obj\Release\Medissa_MarkupCompile.lref
 F:\Git\Timetable\Medissa\Medissa\obj\Release\App.baml
 F:\Git\Timetable\Medissa\Medissa\obj\Release\AddDoctor.baml
 F:\Git\Timetable\Medissa\Medissa\obj\Release\AddMembers.baml
@@ -195,8 +187,15 @@ F:\Git\Timetable\Medissa\Medissa\obj\Release\Auth.baml
 F:\Git\Timetable\Medissa\Medissa\obj\Release\EditDoctors.baml
 F:\Git\Timetable\Medissa\Medissa\obj\Release\EditMember.baml
 F:\Git\Timetable\Medissa\Medissa\obj\Release\ShowingRecord.baml
-F:\Git\Timetable\Medissa\Medissa\obj\Release\Medissa.g.resources
 F:\Git\Timetable\Medissa\Medissa\obj\Release\Medissa.Properties.Resources.resources
 F:\Git\Timetable\Medissa\Medissa\obj\Release\Medissa.csproj.GenerateResource.Cache
 F:\Git\Timetable\Medissa\Medissa\obj\Release\GeneratedInternalTypeHelper.g.cs
-F:\Git\Timetable\Medissa\Medissa\bin\Release\Прелварительная запись.exe.config
+F:\Git\Timetable\Medissa\Medissa\bin\Release\Предварительная запись.exe.config
+F:\Git\Timetable\Medissa\Medissa\bin\Release\Предварительная запись.exe
+F:\Git\Timetable\Medissa\Medissa\bin\Release\Предварительная запись.pdb
+F:\Git\Timetable\Medissa\Medissa\obj\Release\Предварительная запись_Content.g.cs
+F:\Git\Timetable\Medissa\Medissa\obj\Release\Предварительная запись_MarkupCompile.cache
+F:\Git\Timetable\Medissa\Medissa\obj\Release\Предварительная запись_MarkupCompile.lref
+F:\Git\Timetable\Medissa\Medissa\obj\Release\Предварительная запись.g.resources
+F:\Git\Timetable\Medissa\Medissa\obj\Release\Предварительная запись.exe
+F:\Git\Timetable\Medissa\Medissa\obj\Release\Предварительная запись.pdb

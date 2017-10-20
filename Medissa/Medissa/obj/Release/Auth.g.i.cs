@@ -84,7 +84,7 @@ namespace Medissa {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Прелварительная запись;component/auth.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Предварительная запись;component/auth.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\Auth.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
